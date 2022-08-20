@@ -18,16 +18,47 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-sm-9">
+                    <h2>Enter participants:</h2>
+                    <div>
+                        Require
+                                <input class="required form-control" type="number" value="0" min="2" max="255" autocomplete="off">
+                        from either:
+                        <input class="participants form-control" style="margin-top: 0.4em;" type="text" autocomplete="off">
+                    </div>
+                    <p id="participantsErr" style="color: red; margin: 1em; text-align: center; visibility: hidden;">Not enough participants, at least 2 is required.</p>
+                </div>
+                <div class="col-sm-9" style="margin: 1em;">
+                    <div class="col-sm-6">
+                        <p>Choose a zip password: </p>
+                        <input type="password" id="pass" name="password" minlength="8" required>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <p>Confirm password: </p>
+                        <input type="password" id="passConfirm" name="password" minlength="8" required>
+                    </div>
+
+                    <p id="passMatchErr" style="color: red; margin: 1em; text-align: center; visibility: hidden;">Zip passwords don't match!</p>
+
+                </div>
+                <div class="col-sm-6" style="margin: 1em;">
+                    <div class="col-sm-6">
+                        <button id="downloadBtn">Download</button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="row" style="opacity: 0.5; pointer-events: none;">
                 <div class="col-sm-6">
                     <h2>Split</h2>
                     <div>
-                        Require
-                        <input class="required form-control" type="number" value="3" min="2" max="255">
+                        <input class="requiredDisabled form-control" type="number" value="0" min="2" max="255" disabled>
                         parts from
-                        <input class="total form-control" type="number" value="5" min="2" max="255">
+                        <input class="total form-control" type="number" disabled="true" value="0" min="2" max="255">
                         to reconstruct the following secret
                     </div>
-                    <textarea class="secret form-control" rows=10 placeholder="Enter your secret here"></textarea>
+                    <textarea class="secret form-control" disabled="true" rows=10 placeholder="Enter your secret here"></textarea>
                     <h2>Usage</h2>
                     <p>Double click each part below to select the content for that part. Copy and paste the content for each part into <span class="distributesize">5</span> individual files on your computer.</p>
                     <p>Distribute one file to each person in your group.</p>
@@ -44,7 +75,7 @@
                     <p class="form-control-static">
                         Enter the secrets, one per line
                     </p>
-                    <textarea class="parts form-control" rows=10></textarea>
+                    <textarea class="parts form-control" disabled="true" rows=10></textarea>
                     <h2>Result</h2>
                     <pre class="combined">Enter your parts above.</pre>
                 </div>
@@ -67,6 +98,8 @@
                 </div>
             </div>
         </div>
+        <script src="js/ethers-5.6.umd.min.js"></script>
+        <script src="js/zip.min.js"></script>
         <script src="js/secrets.js"></script>
         <script src="js/selector.js"></script>
         <script src="js/app.js"></script>

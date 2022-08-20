@@ -28,3 +28,7 @@ pre {
 .part:nth-of-type(2n+0) {
     background-color: #E9E8E6;
 }
+
+button[disabled=disabled], button:disabled {
+    color: #999999;
+}

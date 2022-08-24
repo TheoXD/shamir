@@ -193,7 +193,7 @@
         var secretBlob = new Blob([DOM.secret.value], {
             type: "plain/text"
         });
-        secretBlob.name = ethAddrShort + "_SECRET_requires_" + shares.length + "_of_" + shares.length + "_Treasurer" + ".txt";
+        secretBlob.name = ethAddrShort + "_SECRET_requires_" + shares.length + "_of_" + participants[i] + "_Treasurer" + ".txt";
         try {
             model.addFile(secretBlob,
                 {

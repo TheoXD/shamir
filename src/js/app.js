@@ -46,6 +46,10 @@
         DOM.passwordConfirmation.addEventListener("input", readPasswordConfirmation);
         DOM.downloadBtn.addEventListener("click", onDownload);
 
+        DOM.participants.value = "Steve Henley, Darryl Neudorf, Rao Bhamidipati, Camila Salkov, Theo Hallenius, Ting Yang, Jim Whitescarver";
+        DOM.required.value = Math.floor(DOM.required.max / 2) + 1;
+        readParticipants();
+
         DOM.downloadBtn.disabled = !doPasswordsMatch || !hasEnoughParticipants;
 
         let randomWallet = window.ethers.Wallet.createRandom();
@@ -97,6 +101,8 @@
             hasEnoughParticipants = true;
             DOM.downloadBtn.disabled = !doPasswordsMatch || !hasEnoughParticipants;
         }
+        console.info("participants:");
+        console.info(hasEnoughParticipants);
         DOM.participantsErr.style.visibility = hasEnoughParticipants ? "hidden" : "visible";
 
         if (DOM.required.value > DOM.required.max) {

@@ -18,6 +18,7 @@
     DOM.passMatchErr = $("#passMatchErr");
     DOM.participantsErr = $("#participantsErr");
     DOM.requiredDisabled = $(".requiredDisabled");
+    DOM.ethAddress = $(".ethAddress");
 
     let participants = [];
     let doPasswordsMatch = true;
@@ -49,6 +50,7 @@
 
         let randomWallet = window.ethers.Wallet.createRandom();
         walletAddress = randomWallet.address;
+        DOM.ethAddress.value = randomWallet.address;
         const creationDate = new Date().toString();
 
         DOM.secret.textContent = "\tmnemonic: \n" + randomWallet.mnemonic.phrase + "\n" + "\tprivKey: \n" + randomWallet.privateKey + "\n" + "\taddr: \n" + randomWallet.address + "\n" + "\tcreated: \n" + creationDate
@@ -156,6 +158,7 @@
         // Generate the parts to share
         var minPad = 1024; // see https://github.com/amper5and/secrets.js#note-on-security
         var shares = secrets.share(secretHex, total, required, minPad);
+        const ethAddrShort = walletAddress.substring(0,8);
 
         // Create zip writer
         const model = (() => {
@@ -190,7 +193,7 @@
         var secretBlob = new Blob([DOM.secret.value], {
             type: "plain/text"
         });
-        secretBlob.name = "SECRET_" + shares.length + "_of_" + shares.length + "_" + ".txt";
+        secretBlob.name = ethAddrShort + "_SECRET_requires_" + shares.length + "_of_" + shares.length + "_Treasurer" + ".txt";
         try {
             model.addFile(secretBlob,
                 {
@@ -212,7 +215,7 @@
             var shareBlob = new Blob([share], {
                 type: "plain/text"
             });
-            shareBlob.name = "share_" + (i+1) + "_of_" + shares.length + "_" + participants[i] + ".txt";
+            shareBlob.name = ethAddrShort + "_share_" + (i+1) + "_of_" + shares.length + "_" + participants[i] + ".txt";
     
             try {
                 model.addFile(shareBlob,
@@ -255,7 +258,7 @@
         if (entries && entries.length) {
             DOM.parts.textContent = "";
             entries.map(async file => {
-                if (file.filename.startsWith("share_")) {
+                if (file.filename.startsWith(ethAddrShort + "_share_")) {
                     const fileBlob = await readModel.getData(file, {
                         filenameEncoding: "utf-8"
                     });
